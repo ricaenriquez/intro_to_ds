@@ -23,7 +23,7 @@ def compute_cost(features, values, theta):
     return cost
 
 def gradient_descent(features, values, theta, alpha, num_iterations):
-     """
+    """
     Perform gradient descent given a data set with an arbitrary number of features.
     """
 
@@ -33,6 +33,15 @@ def gradient_descent(features, values, theta, alpha, num_iterations):
     # values of theta and the cost history.
 
     # YOUR CODE GOES HERE
+    cost_history = []
+    m = len(values)
+    for i in range(0, num_iterations):
+        predicted_values = numpy.dot(features, theta)
+        theta = theta - alpha/m*numpy.dot((predicted_values - values), features)
+        cost = compute_cost(features, values, theta)
+        cost_history.append(cost)
+    return theta, cost_history
+
 
 
 if __name__ == '__main__':
