@@ -21,7 +21,9 @@ def min_temperature_on_rainy_days(filename):
     weather_data = pd.read_csv(filename)
 
     q = """
-    your query here
+    SELECT AVG(cast (mintempi as integer)) FROM weather_data
+    WHERE cast(rain as integer) == 1
+    AND cast(mintempi as integer) > 55;
     """
     
     #Execute your SQL command against the pandas frame

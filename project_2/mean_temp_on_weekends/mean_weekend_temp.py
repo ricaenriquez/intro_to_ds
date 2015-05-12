@@ -29,7 +29,9 @@ def avg_min_temperature(filename):
     weather_data = pd.read_csv(filename)
 
     q = """
-    your query here
+    SELECT AVG(cast (meantempi as integer)) FROM weather_data
+    WHERE (cast (strftime('%w', date) as integer) == 0)
+        OR (cast (strftime('%w', date) as integer) == 6);
     """
     
     #Execute your SQL command against the pandas frame

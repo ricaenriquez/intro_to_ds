@@ -31,8 +31,41 @@ def fix_turnstile_data(filenames):
     Sample updated file:
     https://www.dropbox.com/s/074xbgio4c39b7h/solution_turnstile_110528.txt
     '''
-    for name in filenames:
-        # your code here
+    for m in range(0, len(filenames)):
+        cols = [[],[],[],[],[],[],[],[]]
+        with open(filenames[m],'rb') as f:
+            reader = csv.reader(f, delimiter=',')
+            for name in reader:
+                k = 0
+                for j in range(0,len(name)):
+                    # print name[j],k
+                    if j > 7:
+                        if k == 0:
+                            cols[0].append(name[0].strip())
+                            cols[3].append(name[j].strip())
+                            k = k +1
+                        elif k == 1:
+                            cols[1].append(name[1])
+                            cols[4].append(name[j].strip())
+                            k = k +1
+                        elif k == 2:
+                            cols[2].append(name[2])
+                            cols[5].append(name[j].strip())
+                            k = k +1
+                        elif k == 3:
+                            cols[6].append(name[j].strip())
+                            k = k +1
+                        elif k == 4:
+                            cols[7].append(name[j].strip())
+                            k = 0
+                    else:
+                        cols[j].append(name[j].strip())
+        with open('updated_' + filenames[m], 'wb') as f:
+            writer = csv.writer(f, delimiter=',')
+            for i in range(0,len(cols[7])):
+                writer.writerow([cols[0][i],cols[1][i],cols[2][i],cols[3][i],cols[4][i],cols[5][i],cols[6][i],cols[7][i]])
+
+
 
 if __name__ == "__main__":
     input_files = ['turnstile_110528.txt', 'turnstile_110604.txt']
