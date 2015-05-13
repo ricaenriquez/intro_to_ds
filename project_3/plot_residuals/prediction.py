@@ -16,9 +16,7 @@ def plot_residuals(dataframe, predictions):
     '''
 
     plt.figure()
-    #
-    # your code here
-    #
+    (dataframe[u'ENTRIESn_hourly'] - predictions).hist()
     return plt
 
 def normalize_features(array):
@@ -56,11 +54,11 @@ def gradient_descent(features, values, theta, alpha, num_iterations):
         cost = compute_cost(features, values, theta)
         cost_history.append(cost)
 
-    return theta, pandas.Series(cost_history)
+    return theta, pd.Series(cost_history)
 
 def predictions(dataframe):
 
-    dummy_units = pandas.get_dummies(dataframe['UNIT'], prefix='unit')
+    dummy_units = pd.get_dummies(dataframe['UNIT'], prefix='unit')
     features = dataframe[['rain', 'precipi', 'Hour', 'meantempi']].join(dummy_units)
     values = dataframe[['ENTRIESn_hourly']]
     m = len(values)

@@ -12,8 +12,9 @@ def compute_r_squared(data, predictions):
     # Numpy has a couple of functions -- np.mean() and np.sum() --
     # that you might find useful, but you don't have to use them.
 
-    # YOUR CODE GOES HERE
-
+    num = (data - predictions)**2
+    den = (data - np.mean(data))**2
+    r_squared = 1 - (np.sum(num))/(np.sum(den))
     return r_squared
 
 

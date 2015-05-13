@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-import scipy
-import statsmodels
+import statsmodels.api as sm
 
 """
 In this optional exercise, you should complete the function called 
@@ -29,11 +28,36 @@ the 30 second limit that's placed on running your program. See if you can optimi
 runs faster.
 """
 
+def normalize_features(array):
+   """
+   Normalize the features in our data set.
+   """
+   array_normalized = (array-array.mean())/array.std()
+   mu = array.mean()
+   sigma = array.std()
+
+   return array_normalized, mu, sigma
+
 def predictions(weather_turnstile):
     #
     # Your implementation goes here. Feel free to write additional
     # helper functions
-    # 
+    #
+    dummy_units = pd.get_dummies(weather_turnstile['UNIT'], prefix='unit')
+    features = weather_turnstile[['rain', 'precipi', 'Hour', 'meantempi']].join(dummy_units)
+    values = weather_turnstile[['ENTRIESn_hourly']]
+    m = len(values)
+
+    features, mu, sigma = normalize_features(features)
+
+    features['ones'] = np.ones(m)
+    features_array = np.array(features)
+    values_array = np.array(values).flatten()
+
+    # Fit a OLS model with intercept on TV and Radio
+    features_array = sm.add_constant(features_array)
+    olsres = sm.OLS(values_array, features_array).fit()
+    prediction = olsres.predict(features_array)
     return prediction
 
 def compute_r_squared(data, predictions):
@@ -47,6 +71,6 @@ if __name__ == "__main__":
     input_filename = "turnstile_data_master_with_weather.csv"
     turnstile_master = pd.read_csv(input_filename)
     predicted_values = predictions(turnstile_master)
-    r_squared = compute_r_squared(turnstile_master['ENTRIESn_hourly'], predicted_values) 
-
+    r_squared = compute_r_squared(turnstile_master['ENTRIESn_hourly'], predicted_values)
+    print predicted_values
     print r_squared
