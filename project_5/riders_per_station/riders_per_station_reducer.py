@@ -10,10 +10,18 @@ def reducer():
 
     '''
     
-    entries = 0
-    old_key = None
-
+    entries = {}
     for line in sys.stdin:
-        # your code here
+        data = line.strip().split('\t')
+        if len(data) != 2:
+            continue
+        else:
+            key = data[0]
+            if key not in entries:
+                entries[key] = float(data[1])
+            else:
+                entries[key] += float(data[1])
+    for key in entries:
+        print (key + '\t' + str(entries[key]))
 
 reducer()

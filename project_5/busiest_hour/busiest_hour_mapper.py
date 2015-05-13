@@ -13,6 +13,10 @@ def mapper():
 
 
     for line in sys.stdin:
-        # your code here
+        data = line.strip().split(',')
+        if data[0] == "" or len(data) !=22:
+            continue
+        else:
+            print (data[1] + '\t' + data[6] + '\t' + data[2] + '\t' + data[3])
 
 mapper()

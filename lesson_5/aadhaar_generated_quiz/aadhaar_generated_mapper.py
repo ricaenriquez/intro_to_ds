@@ -2,9 +2,7 @@ import sys
 import string
 
 def mapper():
-    
     for line in sys.stdin: #cycle through lines of code
-        
         #Your mapper code goes here.
         #You will also need to fill out the reducer
         #code as well before test running or else you will get an error.
@@ -21,7 +19,7 @@ def mapper():
         #You can see a copy of the the input aadhaar data
         #in the link below:
         #https://www.dropbox.com/s/vn8t4uulbsfmalo/aadhaar_data.csv
-        
-        #your code here
-        
+        line = line.strip().split(',')
+        if (len(line) == 12) and (line[0] == 'Registrar'):
+            print (line[3] + '\t' + line[8])
 mapper()

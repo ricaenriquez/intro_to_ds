@@ -21,15 +21,19 @@ def word_count():
     #
     # Store the the number of times that a word appears in Alice in Wonderland
     # in the word_counts dictionary
-
-
     word_counts = {}
 
     for line in sys.stdin:
         data = line.strip().split(" ")
-        
-        # Your code here
-
+        for word in data:
+            # lword = word.strip(string.punctuation).lower()
+            lword = word.translate(string.maketrans("",""),string.punctuation).lower()
+            if lword not in word_counts.keys():
+                word_counts[lword] = 1
+#                print lword, word_counts[lword]
+            else:
+                word_counts[lword] = word_counts[lword] + 1
+#                print lword, word_counts[lword]
     print word_counts
 
 word_count()

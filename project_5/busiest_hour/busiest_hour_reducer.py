@@ -24,10 +24,20 @@ def reducer():
     
     '''
 
-    max_entries = 0
-    old_key = None
-    datetime = ''
-
-    # your code here
+    entries = {}
+    for line in sys.stdin:
+        data = line.strip().split('\t')
+        if len(data) != 4:
+            continue
+        else:
+            key = data[0]
+            riders = float(data[1])
+            if key not in entries:
+                entries[key] = [data[2]+ ' ' + data[3], riders]
+            else:
+                if entries[key][1] <= riders:
+                    entries[key] = [data[2] + ' ' + data[3], riders]
+    for key in entries:
+        print (key + '\t' + str(entries[key][0]) + '\t' + str(entries[key][1]))
     
 reducer()
