@@ -15,9 +15,9 @@ def lineplot(hr_year_csv):
     #
     # You can check out the data loaded into the dataframe at the link below:
     # https://www.dropbox.com/s/awgdal71hc1u06d/hr_year.csv
-    
-    # your code here
-    gg = # more of your code here
+    data = pd.read_csv(hr_year_csv)
+    gg = ggplot(data,aes(x="yearID",y="HR"))+geom_point(color='red')+geom_line(color='red')
+
     return gg
 
 

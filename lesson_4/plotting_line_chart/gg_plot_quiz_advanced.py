@@ -24,7 +24,8 @@ def lineplot_compare(hr_by_team_year_sf_la_csv):
     # For example, ggplot(data, aes(xvar, yvar, color=category_var)).  This
     # should help you.
     
-    gg = #YOUR CODE GOES HERE
+    bb_df = pd.read_csv(hr_by_team_year_sf_la_csv)
+    gg = ggplot(bb_df, aes('yearID','HR', color='teamID')) + geom_point() + geom_line() + xlab('Year') + ylab('HR')
     return gg
 
 if __name__ == "__main__":

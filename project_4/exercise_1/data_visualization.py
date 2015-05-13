@@ -29,14 +29,21 @@ def plot_weather_data(turnstile_weather):
     of the actual data in the turnstile_weather dataframe
     '''
 
-    plot = # your code here
+    df =  turnstile_weather
+    entriesByDayOfMonth = df[['DATEn', 'ENTRIESn_hourly']] \
+        .groupby('DATEn', as_index=False).sum()
+    entriesByDayOfMonth['Day'] = [datetime.strptime(x, '%Y-%m-%d').strftime('%w %A') \
+         for x in entriesByDayOfMonth['DATEn']]
+    entriesByDay = entriesByDayOfMonth[['Day', 'ENTRIESn_hourly']]. \
+        groupby('Day', as_index=False).sum()
+    plot = ggplot(entriesByDay, aes(x='Day', y='ENTRIESn_hourly')) + geom_bar(aes(weight='ENTRIESn_hourly'), fill='blue',stat='bar') + ggtitle('NYC Subway ridership by day of week') + xlab('Day') + ylab('Entries')
     return plot
 
 
 if __name__ == "__main__":
     image = "plot.png"
     with open(image, "wb") as f:
-        turnstile_weather = pd.read_csv(input_filename)
+        turnstile_weather = read_csv('turnstile_data_master_with_weather.csv')
         turnstile_weather['datetime'] = turnstile_weather['DATEn'] + ' ' + turnstile_weather['TIMEn']
         gg =  plot_weather_data(turnstile_weather)
-        ggsave(f, gg)
+        ggsave(image, gg)
