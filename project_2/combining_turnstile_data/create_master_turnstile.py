@@ -34,7 +34,6 @@ def create_master_turnstile_file(filenames, output_file):
                 for line in reader:
                     writer.writerow(line)
 
-
 if __name__ == "__main__":
     input_files = ['turnstile_110528.txt', 'turnstile_110604.txt']
     output = "turnstile_data_master.csv"

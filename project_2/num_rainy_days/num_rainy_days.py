@@ -34,8 +34,11 @@ def num_rainy_days(filename):
     
     #Execute your SQL command against the pandas frame
     rainy_days = pandasql.sqldf(q.lower(), locals())
-    print rainy_days
 
     return rainy_days
 
-
+if __name__ == "__main__":
+    input_filename = "weather_underground.csv"
+    output_filename = "output.csv"
+    student_df = num_rainy_days(input_filename)
+    student_df.to_csv(output_filename)

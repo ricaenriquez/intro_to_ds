@@ -1,6 +1,6 @@
-import pandas
+import pandas as pd
 
-def get_hourly_exits(grp):
+def get_hourly_exits(df):
     '''
     The data in the MTA Subway Turnstile data reports on the cumulative
     number of entries and exits per row.  Assume that you have a dataframe
@@ -25,8 +25,7 @@ def get_hourly_exits(grp):
     '''
     df[u'EXITSn_hourly']=df[u'EXITSn'] - df[u'EXITSn'].shift(1)
     df[u'EXITSn_hourly'].fillna(0, inplace=True)
-    grp['EXITSn_hourly'] = grp.EXITSn.sub(grp.EXITSn.shift()).fillna(0)
-    return grp
+    return df
 
 if __name__ == "__main__":
     input_filename = "turnstile_data_master_subset_get_hours_entries.csv"

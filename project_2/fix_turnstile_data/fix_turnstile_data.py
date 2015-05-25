@@ -65,8 +65,6 @@ def fix_turnstile_data(filenames):
             for i in range(0,len(cols[7])):
                 writer.writerow([cols[0][i],cols[1][i],cols[2][i],cols[3][i],cols[4][i],cols[5][i],cols[6][i],cols[7][i]])
 
-
-
 if __name__ == "__main__":
     input_files = ['turnstile_110528.txt', 'turnstile_110604.txt']
     fix_turnstile_data(input_files)
