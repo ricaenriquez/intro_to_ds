@@ -39,5 +39,5 @@ def reducer():
                     entries[key] = [data[2] + ' ' + data[3], riders]
     for key in entries:
         print (key + '\t' + str(entries[key][0]) + '\t' + str(entries[key][1]))
-    
+
 reducer()

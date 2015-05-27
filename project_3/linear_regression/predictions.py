@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from ggplot import *
 
 def normalize_features(array):
    """
@@ -85,7 +86,25 @@ def predictions(dataframe):
                                                             alpha, num_iterations)
     predictions = np.dot(features_array, theta_gradient_descent)
 
-    return predictions
+    plot = plot_cost_history(alpha, cost_history)
+    return predictions, plot
+
+def plot_cost_history(alpha, cost_history):
+   """This function is for viewing the plot of your cost history.
+   You can run it by uncommenting this plot_cost_history(alpha,
+   cost_history) call in predictions.
+
+   If you want to run this locally, you should print the return value
+   from this function.
+   """
+   cost_df = pd.DataFrame({
+      'Cost_History': cost_history,
+      'Iteration': range(len(cost_history))
+   })
+   return ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
+      geom_point() + ggtitle('Cost History for alpha = %.3f' % alpha )
+
+
 
 def compute_r_squared(data, predictions):
     SST = ((data-np.mean(data))**2).sum()
@@ -98,7 +117,7 @@ def compute_r_squared(data, predictions):
 if __name__ == "__main__":
     input_filename = "turnstile_data_master_with_weather.csv"
     turnstile_master = pd.read_csv(input_filename)
-    predicted_values = predictions(turnstile_master)
+    predicted_values, cost_plot = predictions(turnstile_master)
     r_squared = compute_r_squared(turnstile_master['ENTRIESn_hourly'], predicted_values) 
 
-    print r_squared
+    print r_squared, cost_plot

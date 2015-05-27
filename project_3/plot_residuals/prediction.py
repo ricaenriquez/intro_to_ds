@@ -16,7 +16,9 @@ def plot_residuals(dataframe, predictions):
     '''
 
     plt.figure()
-    (dataframe[u'ENTRIESn_hourly'] - predictions).hist()
+    (dataframe[u'ENTRIESn_hourly'] - predictions).hist(bins=150)
+    plt.xlim(xmax = 10000, xmin = -10000)
+
     return plt
 
 def normalize_features(array):

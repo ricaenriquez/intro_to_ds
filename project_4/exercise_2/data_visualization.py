@@ -34,15 +34,7 @@ def plot_weather_data(turnstile_weather):
     of the actual data in the turnstile_weather dataframe
     '''
 
-    # entriesByDayOfMonth = df[['DATEn', 'ENTRIESn_hourly']] \
-    #     .groupby('DATEn', as_index=False).sum()
-    # entriesByDayOfMonth['Day'] = [datetime.strptime(x, '%Y-%m-%d').strftime('%w %A') \
-    #      for x in entriesByDayOfMonth['DATEn']]
-    # entriesByDay = entriesByDayOfMonth[['Day', 'ENTRIESn_hourly']]. \
-    #     groupby('Day', as_index=False).sum()
-    # plot = ggplot(entriesByDay, aes(x='Day', y='ENTRIESn_hourly')) + geom_bar(aes(weight='ENTRIESn_hourly'), fill='blue',stat='bar') + ggtitle('NYC Subway ridership by day of week') + xlab('Day') + ylab('Entries')
-
-    plot = ggplot(turnstile_weather, aes('EXITSn_hourly', 'ENTRIESn_hourly')) + stat_smooth(span=.15, color='black', se=True)+ geom_point(color='lightblue') + ggtitle("MTA Entries By The Hour!") + xlab('Exits') + ylab('Entries')
+    plot = ggplot(turnstile_weather, aes('EXITSn_hourly', 'ENTRIESn_hourly')) + stat_smooth(span=.15, color='black', se=True)+ geom_point(color='lightblue') + ggtitle("MTA Entries and Exits") + xlab('Exits') + ylab('Entries')
     return plot
 
 if __name__ == "__main__":
